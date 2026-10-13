@@ -1,69 +1,69 @@
-# 🏠 House Building Project
+# House Building: Full-Stack Construction Company Website
 
-A basic project demonstrating the structure and design of a house-building application. This project can be used as a foundation for architectural design, real estate visualization, or simple construction modeling.
+A full-stack website for a house-building company. Visitors can browse services, projects, the team and testimonials, and send an enquiry. Admins sign in to manage products and read the enquiries and registered users.
 
----
+**Stack:** React, Node.js, Express, MongoDB (Mongoose), JWT, bcrypt
 
-## 🚀 Features
+## Features
 
-- Modular structure for building components
-- Basic layout for rooms and floors
-- Responsive design (if web-based)
-- Clean and maintainable code
+- Public pages: Home, About, Services, Projects, Team, Testimonials, Blog, Contact
+- Contact form that saves enquiries to the database
+- Sign up and log in with hashed passwords (bcrypt) and JWT tokens
+- Two roles, `user` and `admin`
+- Admin panel with tables of users and contact enquiries
+- Product management API with image upload (create, read, update, delete)
 
----
+## Screenshots
 
-## 📁 Project Structure
+The `Screenshots/` folder has images of the public pages (`c*.png`) and the admin views (`p*.png`).
+
+## API overview
+
+| Area | Endpoints |
+|---|---|
+| Users | `POST /user/signUp`, `POST /user/logIn`, `GET /user/myProfile` (token needed), `PUT /user/update/:id`, `DELETE /user/dataDelete/:id` |
+| Products | `POST /product/productCreate`, `GET /product/getAllproduct`, `GET /product/findOneProductByParams/:id`, `PUT /product/update/:id`, `DELETE /product/delete/:id` |
+| Contact | `POST /contact/contactCreate`, `GET /contact/getAllContactDetails`, `DELETE /contact/contactDelete/:id` |
+
+## Project structure
+
+```text
+House-Building/
+├── Backend/         # Express API, Mongoose models, JWT middleware, image upload
+├── Setup/           # React frontend (pages, components, auth context)
+└── Screenshots/
+```
+
+## Run locally
+
+You need Node.js and a MongoDB database (a free MongoDB Atlas cluster works).
+
+1. Backend: create `Backend/.env` with your own values, then start the server.
+
+```text
+Server=5000
+MongoURL=<your MongoDB connection string>
+secretKey=<a long random string>
+```
 
 ```bash
-House-building-project/
-├── assets/             # Images, textures, or media files
-├── css/                # Stylesheets
-├── js/                 # JavaScript (if applicable)
-├── index.html          # Main entry point (for web)
-└── README.md           # Project documentation
+cd Backend
+npm install
+npm start
 ```
-🛠️ Technologies Used
-HTML5 / CSS3
 
-JavaScript (if applicable)
+2. Frontend:
 
-[Add any frameworks or libraries here]
-
-🔧 Installation
-Clone the repository:
-
-```bash Copy code
-git clone https://github.com/ashwanisingh51/House-Building.git
-Open the project folder:
+```bash
+cd Setup
+npm install
+npm start
 ```
-```bash Copy code
-cd House-Building
-Open index.html in your browser or run using a live server (e.g., VS Code Live Server).
-```
-### 📸 Screenshots
 
-(Add screenshots here if available)
+`.env` is listed in `.gitignore` and must never be committed.
 
-### ✍️ Author
+## What I would improve
 
-Ashwani Singh
-GitHub: @ashwanisingh51
-
-### 📄 License
-
-This project is licensed under the MIT License.
-
-
-### ✅ How to Add to Your Project
-
-1. Create a new file in your project root called `README.md`
-2. Paste the above markdown into it
-3. Save it
-4. Then commit and push:
-
-```bash copy code
-git add README.md
-git commit -m "Add project README"
-git push origin main
-```
+- Add input validation and rate limiting on the auth routes
+- Protect the product and contact admin routes with the admin role check
+- Move the frontend into a `frontend/` folder and add tests
